@@ -1,19 +1,19 @@
-function showCalculator() {
-    document.getElementById("Calculator").style.display = "block";
-    num1=0,num2=0;
-    flag=0;
-   var cal1=new CalciRender();
+function showCalculator(divName) {
+    document.getElementById(divName).style.display = "block";
+        var cal1=new CalciRender();
 }
 
-var CalciRender=function createCalculator()
+var CalciRender= function createCalculator()
 {
     calculator = document.createElement("div");
     output = document.createElement("div");
     input = document.createElement("div");
+    resultTextbox = document.createElement("textbox");
 
     calculator.setAttribute("class","calculator");
     output.setAttribute("class","output");
     input.setAttribute("class","input");
+    resultTextbox.setAttribute("id","answerbox");
 
     one = document.createElement("button");
     two = document.createElement("button");
@@ -50,10 +50,10 @@ var CalciRender=function createCalculator()
     divide.innerHTML="/";
     multiply.innerHTML="*";
 
-
     document.body.appendChild(calculator); 
     calculator.appendChild(output);
     calculator.appendChild(input);
+    output.appendChild(resultTextbox);
 
     input.appendChild(seven);
     input.appendChild(eight);
@@ -75,101 +75,31 @@ var CalciRender=function createCalculator()
     input.appendChild(equal);
     input.appendChild(plus);
 
-    one.setAttribute('onclick', 'Calculate(1)');
-    two.setAttribute('onclick', 'Calculate(2)');
-    three.setAttribute('onclick', 'Calculate(3)');
-    four.setAttribute('onclick', 'Calculate(4)');
-    five.setAttribute('onclick', 'Calculate(5)');
-    six.setAttribute('onclick', 'Calculate(6)');
-    seven.setAttribute('onclick', 'Calculate(7)');
-    eight.setAttribute('onclick', 'Calculate(8)');
-    nine.setAttribute('onclick', 'Calculate(9)');
-    zero.setAttribute('onclick', 'Calculate(0)');
-    equal.setAttribute('onclick', 'Calculate("=")');
-    dot.setAttribute('onclick', 'Calculate(".")');
-    plus.setAttribute('onclick', 'Calculate("+")');
-    minus.setAttribute('onclick', 'Calculate("-")');
-    multiply.setAttribute('onclick', 'Calculate("=")');
-    divide.setAttribute('onclick', 'Calculate("/")');
+    one.setAttribute('onclick', 'passInput(1)');
+    two.setAttribute('onclick', 'passInput(2)');
+    three.setAttribute('onclick', 'passInput(3)');
+    four.setAttribute('onclick', 'passInput(4)');
+    five.setAttribute('onclick', 'passInput(5)');
+    six.setAttribute('onclick', 'passInput(6)');
+    seven.setAttribute('onclick', 'passInput(7)');
+    eight.setAttribute('onclick', 'passInput(8)');
+    nine.setAttribute('onclick', 'passInput(9)');
+    zero.setAttribute('onclick', 'passInput(0)');
+    equal.setAttribute('onclick', 'Calculate()');
+    dot.setAttribute('onclick', 'passInput(".")');
+    plus.setAttribute('onclick', 'passInput("+")');
+    minus.setAttribute('onclick', 'passInput("-")');
+    multiply.setAttribute('onclick', 'passInput("=")');
+    divide.setAttribute('onclick', 'passInput("/")');
+
 }
 
-var num1=0,num2=0;
-var flag=0;
-
-function Calculate(value)
+function passInput(value)
 {
-    if(value=="+" || value=="*" || value=="-" || value=="/")
-    {
-        flag=1;
-        switch (value)
-        {
-            case "+":           
-                    operator1 = document.createElement("textbox");
-                    operator1.innerHTML = value;
-                    output.appendChild(operator1); 
-                    operator = value;
-            break;
-            case "-":
-                    operator1 = document.createElement("textbox");
-                    operator1.innerHTML = value;
-                    output.appendChild(operator1); 
-                    operator = value;
-            break;
-            case "*":
-                    operator1 = document.createElement("textbox");
-                    operator1.innerHTML = value;
-                    output.appendChild(operator1); 
-                    operator = value;
-            break;
-            case "/":
-                    operator1 = document.createElement("textbox");
-                    operator1.innerHTML = value;
-                    output.appendChild(operator1); 
-                    operator = value;
-            break;    
-        }
-    }
-    else if(value=="=")
-    {
-        result = document.createElement("textbox");
-        operatorShow = document.createElement("textbox");
-        operatorShow.innerHTML =value
-        output.appendChild(operatorShow);
+    resultTextbox.innerHTML+=value;
+}
 
-        switch (operator)
-        {
-            case "+":
-               
-                    result.innerHTML = num1 + num2;
-                    output.appendChild(result); 
-            break;
-            case "-":
-                    result.innerHTML = num1-num2;
-                    output.appendChild(result); 
-            break;
-            case "*":
-                    result.innerHTML = num1*num2;
-                    output.appendChild(result); 
-            break;
-            case "/":
-                    result.innerHTML = num1/num2;
-                    output.appendChild(result); 
-            break;    
-        }
-       
-    }
-    else
-    {
-        p = document.createElement("textbox");
-        p.innerHTML = value;
-        output.appendChild(p); 
-        if(flag==0)
-        {   
-            num1 = num1*10 + value;
-        }
-        else
-        {      
-            num2 = num2*10 + value;
-        }
-    }
+function Calculate()
+{
+    resultTextbox.innerHTML= eval(resultTextbox.innerHTML);
 }
