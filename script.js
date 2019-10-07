@@ -1,5 +1,5 @@
-function showCalculator(divName) {
-    document.getElementById(divName).style.display = "block";
+function showCalculator() {
+    document.getElementById("Calculator").style.display = "block";
         var cal1=new CalciRender();
 }
 
